@@ -8,12 +8,14 @@
         android:id="@+id/inputTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Title" />
+        android:hint="Title"
+        android:textColor="@color/black"/>
 
     <EditText
         android:id="@+id/inputDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/black"
         android:hint="Description"
         android:layout_marginTop="8dp"
         android:inputType="textMultiLine"
@@ -24,5 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Save Note" />
+        android:text="Save Note"
+        android:textColor="@color/black"
+        android:backgroundTint="@color/cream"/>
 </LinearLayout>
