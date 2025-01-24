@@ -1,9 +1,12 @@
 package com.faradilla.gratuit;
 
-import androidx.appcompat.app.AppCompatActivity;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.content.Intent;
+import android.widget.Toast;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -44,4 +47,28 @@ public class MainActivity extends AppCompatActivity {
         adapter = new NoteAdapter(this, notes);
         recyclerView.setAdapter(adapter);
     }
+
+    // Method untuk menampilkan dialog konfirmasi hapus
+    public void showDeleteDialog(final int position) {
+        new AlertDialog.Builder(this)
+                .setMessage("Apakah Anda ingin menghapus catatan ini?")
+                .setCancelable(false)
+                .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        // Hapus item dari database dan update RecyclerView
+                        boolean isDeleted = databaseHelper.deleteNote(adapter.getNoteAt(position));
+                        if (isDeleted) {
+                            adapter.removeItem(position); // Menghapus item dari RecyclerView
+                            Toast.makeText(MainActivity.this, "Catatan berhasil dihapus", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(MainActivity.this, "Gagal menghapus catatan", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                })
+                .setNegativeButton("Tidak", null)
+                .show();
+    }
+
+
 }

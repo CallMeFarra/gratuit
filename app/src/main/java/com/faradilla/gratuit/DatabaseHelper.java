@@ -64,10 +64,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return notes;
     }
 
-    public void deleteNote(int id) {
+    public boolean deleteNote(Note note) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_NOTES, COLUMN_ID + "=?", new String[]{String.valueOf(id)});
+        int rowsAffected = db.delete(TABLE_NOTES, COLUMN_ID + "=?", new String[]{String.valueOf(note.getId())});
         db.close();
+        return rowsAffected > 0;  // Jika baris yang dihapus lebih dari 0, berarti berhasil
     }
+
 }
 
